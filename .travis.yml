@@ -10,4 +10,4 @@ script:
 after_script:
   - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
 after_success:
-  - npm run lh -- https://blissful-noether-dca508.netlify.com/
+  - npm run lh -- https://deploy-preview-$TRAVIS_PULL_REQUEST-blissful-noether-dca508.netlify.com/
