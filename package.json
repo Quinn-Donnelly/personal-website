@@ -2,6 +2,7 @@
   "name": "personal-website",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://blissful-noether-dca508.netlify.com",
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
