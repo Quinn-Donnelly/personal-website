@@ -11,7 +11,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          Let's see this workflow in action not bad
+          Vivi this is why code is cool!
         </p>
       </div>
     );
