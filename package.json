@@ -12,11 +12,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "lh": "lighthouse-ci",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "devDependencies": {
-    "coveralls": "^3.0.2"
+    "coveralls": "^3.0.2",
+    "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git"
   }
 }
