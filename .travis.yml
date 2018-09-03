@@ -9,6 +9,9 @@ script:
   - npm run build
 after_script:
   - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
-after_success:
-  - chmod +x ./scripts/publish.sh
-  - ./scripts/publish.sh
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash scripts/publish.sh
+  on:
+    branch: master
