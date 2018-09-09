@@ -15,10 +15,18 @@
     "lh": "lighthouse-ci",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "bundlesize": "./node_modules/.bin/bundlesize"
   },
   "devDependencies": {
+    "bundlesize": "^0.17.0",
     "coveralls": "^3.0.2",
     "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./build/static/js/main.*.js",
+      "maxSize": "60 kB"
+    }
+  ]
 }
