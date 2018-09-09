@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://blissful-noether-dca508.netlify.com",
   "dependencies": {
+    "chalk": "^2.4.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.5"
@@ -15,10 +16,20 @@
     "lh": "lighthouse-ci",
     "eject": "react-scripts eject",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "bundlesize": "./node_modules/.bin/bundlesize",
+    "analyze": "node ./scripts/analyze"
   },
   "devDependencies": {
+    "bundlesize": "^0.17.0",
     "coveralls": "^3.0.2",
-    "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git"
-  }
+    "lighthouse-ci": "git+https://github.com/ebidel/lighthouse-ci.git",
+    "shelljs": "^0.8.2"
+  },
+  "bundlesize": [
+    {
+      "path": "./build/static/js/main.*.js",
+      "maxSize": "60 kB"
+    }
+  ]
 }
