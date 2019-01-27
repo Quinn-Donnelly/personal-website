@@ -1,0 +1,22 @@
+version: '3'
+services:
+  site:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/src/app/
+      - api-deps:/usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+
+
+  testing:
+    build: .
+    command: npm run test
+    volumes:
+      - .:/usr/src/app/
+      - api-deps:/usr/src/app/node_modules
+
+
+volumes:
+  api-deps:
