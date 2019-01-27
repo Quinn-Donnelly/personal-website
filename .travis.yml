@@ -12,3 +12,13 @@ after_script:
 after_success:
   - npm run lh -- https://deploy-preview-$TRAVIS_PULL_REQUEST-blissful-noether-dca508.netlify.com/
   - npm run bundlesize
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_KEY
+  secret_access_key: $AWS_SECRET
+  bucket: quintin-donnelly.com
+  skip_cleanup: true
+  acl: public_read
+  on:
+    branch: master
