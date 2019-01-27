@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Home from '../Home';
+import HomePage from '../HomePage';
 
-describe('<Home />', () => {
+describe('<HomePage />', () => {
   it('should have maintenance message', () => {
-    const homePage = shallow(<Home />);
+    const homePage = shallow(<HomePage />);
     const welcomeMessage = <p className="App-intro">
       Site under construction, sorry for the inconvenience. 
     </p>
@@ -15,7 +15,7 @@ describe('<Home />', () => {
   // Better to be done with snapshot test but as long as the 
   // name is rendered that will be fine for now
   it('Should display name', () => {
-    const homePage = shallow(<Home />);
+    const homePage = shallow(<HomePage />);
     const name = 'Quintin Donnelly';
     
     expect(homePage.text()).toContain(name);
