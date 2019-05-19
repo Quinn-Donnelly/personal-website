@@ -1,0 +1,4 @@
+.SocialButton *> svg {
+  font-size: 3em;
+  color: var(--secondary-color);
+}

@@ -11,7 +11,7 @@ export default class Home extends Component {
           <h4>Continously <strong className="secondary">Learning</strong> and Constantly <strong className="primary">Hacking</strong>.</h4>
         </header>
 
-        <SocialButton />
+        <SocialButton type="linkedin"/>
       </div>
     )
   }
