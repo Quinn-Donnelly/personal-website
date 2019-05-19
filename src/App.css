@@ -1,23 +1,14 @@
-.App {
-  text-align: center;
+:root {
+  --background-color: #111;
+  --font-color: #eee;
+  --primary-color: #FFA500;
+  --secondary-color: #4FB1CC;
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  font-family: 'Roboto Mono', monospace;
 }
