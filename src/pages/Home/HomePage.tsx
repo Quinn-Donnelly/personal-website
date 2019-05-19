@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './HomePage.css';
 import SocialButton from '../../components/SocialButton/SocialButton';
 
+
 export default class Home extends Component {
   render() {
     return (
@@ -11,7 +12,12 @@ export default class Home extends Component {
           <h4>Continously <strong className="secondary">Learning</strong> and Constantly <strong className="primary">Hacking</strong>.</h4>
         </header>
 
-        <SocialButton type="linkedin"/>
+        <div className="floating-toolbar">
+          <SocialButton type="github" />
+          <SocialButton type="linkedin" />
+          <SocialButton type="twitter" />
+          <SocialButton type="email" />
+        </div>
       </div>
     )
   }

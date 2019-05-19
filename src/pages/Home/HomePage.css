@@ -24,3 +24,13 @@
   color: var(--secondary-color);
 }
 
+.floating-toolbar {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin: 10px;
+}
+
+.floating-toolbar > * {
+  padding: 5px;
+}
