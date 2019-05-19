@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^4.3.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
-    "babel-jest": "23.6.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "8.0.4",
     "babel-plugin-named-asset-import": "^0.3.0",
     "babel-preset-react-app": "^7.0.0",
@@ -40,7 +40,7 @@
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
+    "jest": "^24.8.0",
     "jest-enzyme": "^7.0.1",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
@@ -108,7 +108,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupTestFrameworkScriptFile": "jest-enzyme",
+    "setupFilesAfterEnv": ["jest-enzyme"],
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
       "enzymeAdapter": "react16"

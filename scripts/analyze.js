@@ -9,8 +9,8 @@ shelljs.env['NODE_ENV'] = 'production';
 
 // Generate stats.json file with webpack
 shelljs.exec(
-  'node_modules\\.bin\\webpack --config ./node_modules/react-scripts/config/webpack.config.prod.js --profile --json > stats.json',
-  addCheckMark.bind(null, callback), // Output a checkmark on completion
+  'webpack-cli --config ./config/webpack.config.js --profile --json > stats.json',
+  addCheckMark.bind(null, callback), // Outputa checkmark on completion
 );
 
 // Called after webpack has finished generating the stats.json file
