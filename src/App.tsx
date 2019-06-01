@@ -4,7 +4,7 @@ import './App.css';
 import HomePage from './pages/Home/HomePage';
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
-function LazyLoad(LazyComponent: any) {
+export function LazyLoad(LazyComponent: any) {
   return () => (
     <Suspense fallback={<div>Loading...</div>}>
       <LazyComponent />
