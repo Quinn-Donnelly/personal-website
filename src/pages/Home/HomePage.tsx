@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
+import './HomePage.css';
+import SocialButton from '../../components/SocialButton/SocialButton';
+
 
 export default class Home extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Quintin Donnelly</h1>
+      <div id="HomePage" className="HomePage">
+        <header className="center">
+          <h1>Quintin Donnelly</h1>
+          <h4>Continously <strong className="secondary">Learning</strong> and Constantly <strong className="primary">Hacking</strong>.</h4>
         </header>
-        <p className="App-intro">
-          Site under construction, sorry for the inconvenience. 
-        </p>
+
+        <div className="floating-toolbar">
+          <SocialButton type="github" />
+          <SocialButton type="linkedin" />
+          <SocialButton type="twitter" />
+          <SocialButton type="email" />
+        </div>
       </div>
     )
   }
