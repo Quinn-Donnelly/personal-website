@@ -1,0 +1,36 @@
+.HomePage {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+  height: 100vh;
+  width: 100vw;
+}
+
+.center {
+  display: flex;
+  grid-column-start: 2;
+  grid-row-start: 2;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.primary {
+  color: var(--primary-color);
+}
+
+.secondary {
+  color: var(--secondary-color);
+}
+
+.floating-toolbar {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin: 10px;
+}
+
+.floating-toolbar > * {
+  padding: 5px;
+}
