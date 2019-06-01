@@ -21,7 +21,7 @@ const SocialButton: FunctionComponent<SocialButtonProps> = ({type}) => {
 
   return (
     <div className="SocialButton">
-      <a href={socialInfo.url} target="__blank" rel="noopener noreferrer">
+      <a href={socialInfo.url} target="__blank" rel="noopener noreferrer" aria-label={`Connect with me via ${type}`}>
         <FontAwesomeIcon icon={socialInfo.icon} />
       </a>
     </div>

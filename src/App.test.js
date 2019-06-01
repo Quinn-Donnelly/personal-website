@@ -13,7 +13,6 @@ describe('<App />', () => {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-
   it('Calling LazyLoad has loading text fallback', () => {
     const TestComponent = () => 'test'
     const dynamicImport = mount(LazyLoad(TestComponent)());
