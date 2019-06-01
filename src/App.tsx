@@ -7,6 +7,7 @@ const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage/NotFoundPage'
 declare global {
   interface Window { CustomNameSpace: any}
 }
+
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: Array<string>;
   readonly userChoice: Promise<{
@@ -14,7 +15,6 @@ interface BeforeInstallPromptEvent extends Event {
     platform: string
   }>;
 }
-
 
 export function LazyLoad(LazyComponent: any) {
   return () => (
@@ -28,7 +28,6 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener('beforeinstallprompt', e => {
-      console.log('neat', 'beforeinstall', e);
       window.CustomNameSpace.deferredEvent = e;
     });
   }
