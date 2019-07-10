@@ -8,7 +8,7 @@ export default class Home extends Component {
     return (
       <div id="HomePage" className="HomePage">
         <header className="center">
-          <h1>1906 Batch with No name</h1>
+          <h1>Quintin Donnelly</h1>
           <h4>Continously <strong className="secondary">Learning</strong> and Constantly <strong className="primary">Hacking</strong>.</h4>
         </header>
 
