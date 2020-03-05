@@ -34,3 +34,13 @@
 .floating-toolbar > * {
   padding: 5px;
 }
+
+.bottom-message {
+  display: flex;
+  flex-direction: row-reverse;
+  grid-row-start: 3;
+  grid-column-start: 2;
+  justify-content: center;
+  align-items: flex-end;
+  text-align: center;
+}
