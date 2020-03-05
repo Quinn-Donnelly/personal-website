@@ -37,7 +37,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={LazyLoad(HomePage)} />
-          <Route path="/*" component={LazyLoad(NotFoundPage)} />
+          <Route path="/*" component={LazyLoad(NotFoundPage)} /> 
         </Switch>
       </Router>
     );
