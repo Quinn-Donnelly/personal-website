@@ -1,0 +1,37 @@
+.info-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-areas: "header header ."
+                        "main main main"
+                        "footer1 . footer2";
+  background-color: var(--foreground-color);
+  border-radius: 5px;
+  padding: 2em;
+}
+
+.title {
+  grid-area: header;
+  padding: 0.5em;
+  border-bottom: solid 2px var(--primary-color);
+}
+
+.info-card > main {
+  grid-area: main;
+}
+
+.left-footer {
+  grid-area: footer1;
+}
+
+.right-footer {
+  grid-area: footer2;
+}
+
+.outline-button {
+  border: 2px solid var(--primary-color);
+  color: var(--font-color);
+  font-family: 'Roboto Mono', monospace;
+  background-color: transparent;
+  padding: 1em 2em;
+}

@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/Home/HomePage';
+import ExperiencePage from "./pages/ExperiencePage/ExperiencePage";
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 declare global {
@@ -37,6 +38,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={LazyLoad(HomePage)} />
+          <Route path="/experience" component={LazyLoad(ExperiencePage)} />
           <Route path="/*" component={LazyLoad(NotFoundPage)} /> 
         </Switch>
       </Router>
