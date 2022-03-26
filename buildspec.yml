@@ -13,5 +13,5 @@ phases:
     commands:
       - echo Build completed on `date`
       - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
-      - ./node_modules/.bin/lhci autorun --upload.target=temporary-public-storage
+      - ./node_modules/.bin/lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=build --no-sandbox
       - npm run bundlesize
