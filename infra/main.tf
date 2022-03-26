@@ -67,6 +67,11 @@ resource "aws_iam_role_policy" "codebuild-policy" {
     "Version" : "2012-10-17",
     "Statement" : [
       {
+        "Effect": "Allow",
+        "Resource": "arn:aws:codestar-connections:us-east-1:778172975102:connection/7abf61da-6944-4302-a3cd-cfad3a78903e",
+        "Action": "codestar-connections:UseConnection"
+      },
+      {
         "Effect" : "Allow",
         "Resource" : [
           "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo-name}",
