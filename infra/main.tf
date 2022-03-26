@@ -20,8 +20,14 @@ provider "aws" {
 }
 
 variable "repo-name" {
-  type = string
+  type        = string
   description = "Used for naming github repo and projects for dev ops resources"
+}
+
+variable "coveralls_repo_token" {
+  type        = string
+  description = "Token for coveralls access"
+  sensitive   = true
 }
 
 resource "aws_iam_role_policy" "cloudwatch-policy" {
@@ -29,15 +35,15 @@ resource "aws_iam_role_policy" "cloudwatch-policy" {
   role = aws_iam_role.codebuild_role.id
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Resource": [
+        "Effect" : "Allow",
+        "Resource" : [
           "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo-name}",
           "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo-name}:*"
         ],
-        "Action": [
+        "Action" : [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
@@ -52,27 +58,27 @@ resource "aws_iam_role_policy" "codebuild-policy" {
   role = aws_iam_role.codebuild_role.id
 
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Effect": "Allow",
-        "Resource": [
+        "Effect" : "Allow",
+        "Resource" : [
           "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo-name}",
           "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo-name}:*"
 
         ],
-        "Action": [
+        "Action" : [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
       },
       {
-        "Effect": "Allow",
-        "Resource": [
+        "Effect" : "Allow",
+        "Resource" : [
           "arn:aws:s3:::codepipeline-us-east-1-*"
         ],
-        "Action": [
+        "Action" : [
           "s3:PutObject",
           "s3:GetObject",
           "s3:GetObjectVersion",
@@ -81,15 +87,15 @@ resource "aws_iam_role_policy" "codebuild-policy" {
         ]
       },
       {
-        "Effect": "Allow",
-        "Action": [
+        "Effect" : "Allow",
+        "Action" : [
           "codebuild:CreateReportGroup",
           "codebuild:CreateReport",
           "codebuild:UpdateReport",
           "codebuild:BatchPutTestCases",
           "codebuild:BatchPutCodeCoverages"
         ],
-        "Resource": [
+        "Resource" : [
           "arn:aws:codebuild:us-east-1:778172975102:report-group/${var.repo-name}-*"
         ]
       }
@@ -101,12 +107,12 @@ resource "aws_iam_role" "codebuild_role" {
   name = "${var.repo-name}-codebuild-service-role"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Sid       = ""
         Principal = {
           Service = "codebuild.amazonaws.com"
         }
@@ -115,7 +121,7 @@ resource "aws_iam_role" "codebuild_role" {
   })
 
   tags = {
-    project: var.repo-name
+    project : var.repo-name
   }
 }
 
@@ -124,6 +130,7 @@ resource "aws_codebuild_project" "example" {
   description   = "Builds each commit of ${var.repo-name}"
   build_timeout = "5"
   service_role  = aws_iam_role.codebuild_role.arn
+  badge_enabled = true
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -131,14 +138,19 @@ resource "aws_codebuild_project" "example" {
 
   environment {
     compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:1.0"
+    image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
+
+    environment_variable {
+      name  = "coveralls_repo_token"
+      value = var.coveralls_repo_token
+    }
   }
 
   logs_config {
     cloudwatch_logs {
-      group_name  = "/aws/codebuild/${var.repo-name}"
+      group_name = "/aws/codebuild/${var.repo-name}"
     }
 
     # Currently not using s3 logs
@@ -169,17 +181,7 @@ resource "aws_codebuild_webhook" "example" {
   filter_group {
     filter {
       type    = "EVENT"
-      pattern = "PUSH"
-    }
-
-    filter {
-      pattern = "PULL_REQUEST_CREATED"
-      type    = "EVENT"
-    }
-
-    filter {
-      pattern = "PULL_REQUEST_REOPENED"
-      type    = "EVENT"
+      pattern = "PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_REOPENED"
     }
 
     filter {

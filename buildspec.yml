@@ -1,9 +1,8 @@
 version: 0.2
 
 phases:
-  pre_build:
+  install:
     commands:
-      - echo Pre Build phase
       - npm install
   build:
     commands:
@@ -13,4 +12,4 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Not doing anything
+      - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
