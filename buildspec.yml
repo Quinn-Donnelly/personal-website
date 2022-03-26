@@ -4,7 +4,7 @@ phases:
   install:
     commands:
       - npm install
-  pre_buid:
+  pre_build:
     commands:
       - export CI_REPO_OWNER=Quinn-Donnelly
       - export CI_REPO_NAME=personal-website
