@@ -86,15 +86,17 @@
     "lh": "lhci autorun",
     "coverage": "node scripts/test.js --coverage --watchAll=false",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "bundlesize": "./node_modules/.bin/bundlesize",
+    "bundlewatch": "./node_modules/.bin/bundlewatch",
     "analyze": "node ./scripts/analyze"
   },
-  "bundlesize": [
-    {
-      "path": "./build/static/js/main.*.js",
-      "maxSize": "60 kB"
-    }
-  ],
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "./build/static/js/main.*.js",
+        "maxSize": "60 kB"
+      }
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
