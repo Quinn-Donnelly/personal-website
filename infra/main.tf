@@ -154,7 +154,7 @@ resource "aws_codebuild_project" "example" {
     }
 
     environment_variable {
-      name  = "BUNDLESIZE_GITHUB_TOKEN"
+      name  = "BUNDLEWATCH_GITHUB_TOKEN"
       value = var.bundlesize_github_token
     }
   }
