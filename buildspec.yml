@@ -2,19 +2,18 @@ version: 0.2
 
 phases:
   install:
-    run-as: codebuild-user
     commands:
+      - apt-get -y update
+      - apt-get -y install google-chrome-stable
       - npm install
   build:
-    run-as: codebuild-user
     commands:
       - npm run build --production
       - npm run coverage
       - echo $CODEBUILD_WEBHOOK_EVENT
   post_build:
-    run-as: codebuild-user
     commands:
       - echo Build completed on `date`
       - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
-      - ./node_modules/.bin/lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=build
+      - ./node_modules/.bin/lhci autorun
       - npm run bundlesize
