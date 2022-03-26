@@ -10,8 +10,9 @@ phases:
       - npm run coverage
       - echo $CODEBUILD_WEBHOOK_EVENT
   post_build:
+    run-as: codebuild-user
     commands:
       - echo Build completed on `date`
       - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
-      - ./node_modules/.bin/lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=build --no-sandbox
+      - ./node_modules/.bin/lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=build
       - npm run bundlesize
