@@ -4,6 +4,13 @@ phases:
   install:
     commands:
       - npm install
+  pre_buid:
+    commands:
+      - export CI_REPO_OWNER=Quinn-Donnelly
+      - export CI_REPO_NAME=personal-website
+      - export CI_COMMIT_MESSAGE=${git log --format=%B -n 1 $CODEBUILD_RESOLVED_SOURCE_VERSION}
+      - export CI_COMMIT_SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION
+      - export CI=true
   build:
     commands:
       - npm run build --production
