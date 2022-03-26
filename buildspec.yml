@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Pre Build phase
+  build:
+    commands:
+      - npm run build --production
+      - npm run coverage
+      - echo $CODEBUILD_WEBHOOK_EVENT
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Not doing anything
