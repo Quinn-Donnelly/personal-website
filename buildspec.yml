@@ -2,9 +2,11 @@ version: 0.2
 
 phases:
   install:
+    run-as: codebuild-user
     commands:
       - npm install
   build:
+    run-as: codebuild-user
     commands:
       - npm run build --production
       - npm run coverage
