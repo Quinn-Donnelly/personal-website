@@ -30,6 +30,12 @@ variable "coveralls_repo_token" {
   sensitive   = true
 }
 
+variable "bundlesize_github_token" {
+  type = string
+  description = "Token for bundlesize to post status in Github"
+  sensitive = true
+}
+
 resource "aws_iam_role_policy" "cloudwatch-policy" {
   name = "${var.repo-name}-cloudwatch-policy"
   role = aws_iam_role.codebuild_role.id
@@ -145,6 +151,11 @@ resource "aws_codebuild_project" "example" {
     environment_variable {
       name  = "coveralls_repo_token"
       value = var.coveralls_repo_token
+    }
+
+    environment_variable {
+      name  = "BUNDLESIZE_GITHUB_TOKEN"
+      value = var.bundlesize_github_token
     }
   }
 
