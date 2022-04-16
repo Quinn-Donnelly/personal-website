@@ -109,6 +109,14 @@ resource "aws_iam_role_policy" "codebuild-policy" {
         "Resource" : [
           "arn:aws:codebuild:us-east-1:778172975102:report-group/${var.repo_name}-*"
         ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": "s3:*",
+        "Resource": [
+          aws_s3_bucket.artifact-bucket.arn,
+          "${aws_s3_bucket.artifact-bucket.arn}/*"
+        ]
       }
     ]
   })
@@ -193,7 +201,7 @@ resource "aws_codebuild_project" "example" {
   }
 }
 
-resource "aws_codebuild_webhook" "example" {
+resource "aws_codebuild_webhook" "build-hook" {
   project_name = aws_codebuild_project.example.name
   build_type   = "BUILD"
   filter_group {
