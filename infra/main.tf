@@ -155,6 +155,7 @@ resource "aws_codebuild_project" "example" {
     type = "S3"
     location = aws_s3_bucket.artifact-bucket.id
     namespace_type = "BUILD_ID"
+    encryption_disabled = true
   }
 
   environment {
@@ -230,4 +231,25 @@ resource "aws_s3_bucket" "artifact-bucket" {
 resource "aws_s3_bucket_acl" "artifact-bucket-acl" {
   bucket = aws_s3_bucket.artifact-bucket.id
   acl = "public-read"
+}
+
+resource "aws_s3_bucket_policy" "public-read" {
+  bucket = aws_s3_bucket.artifact-bucket.id
+  policy = data.aws_iam_policy_document.public-read-document.json
+}
+
+data "aws_iam_policy_document" "public-read-document" {
+  statement {
+    sid = "AllowPublicRead"
+    principals {
+      identifiers = ["*"]
+      type        = "*"
+    }
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion"
+    ]
+    resources = ["${aws_s3_bucket.artifact-bucket.arn}/*"]
+  }
 }
