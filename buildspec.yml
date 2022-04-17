@@ -25,6 +25,6 @@ phases:
       - npm run bundlesize
 artifacts:
   name: website-bundle
-  base-directory: build
+  base-directory: build/personal-website
   files:
     - '**/*'
