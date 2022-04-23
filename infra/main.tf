@@ -19,7 +19,7 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-variable "repo-name" {
+variable "repo_name" {
   type        = string
   description = "Used for naming github repo and projects for dev ops resources"
 }
@@ -37,7 +37,7 @@ variable "bundlesize_github_token" {
 }
 
 resource "aws_iam_role_policy" "cloudwatch-policy" {
-  name = "${var.repo-name}-cloudwatch-policy"
+  name = "${var.repo_name}-cloudwatch-policy"
   role = aws_iam_role.codebuild_role.id
 
   policy = jsonencode({
@@ -46,8 +46,8 @@ resource "aws_iam_role_policy" "cloudwatch-policy" {
       {
         "Effect" : "Allow",
         "Resource" : [
-          "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo-name}",
-          "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo-name}:*"
+          "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo_name}",
+          "arn:aws:logs:us-east-1:778172975102:log-group:codebuild-${var.repo_name}:*"
         ],
         "Action" : [
           "logs:CreateLogGroup",
@@ -60,7 +60,7 @@ resource "aws_iam_role_policy" "cloudwatch-policy" {
 }
 
 resource "aws_iam_role_policy" "codebuild-policy" {
-  name = "${var.repo-name}-codebuild-policy"
+  name = "${var.repo_name}-codebuild-policy"
   role = aws_iam_role.codebuild_role.id
 
   policy = jsonencode({
@@ -74,8 +74,8 @@ resource "aws_iam_role_policy" "codebuild-policy" {
       {
         "Effect" : "Allow",
         "Resource" : [
-          "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo-name}",
-          "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo-name}:*"
+          "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo_name}",
+          "arn:aws:logs:us-east-1:778172975102:log-group:/aws/codebuild/${var.repo_name}:*"
 
         ],
         "Action" : [
@@ -107,7 +107,15 @@ resource "aws_iam_role_policy" "codebuild-policy" {
           "codebuild:BatchPutCodeCoverages"
         ],
         "Resource" : [
-          "arn:aws:codebuild:us-east-1:778172975102:report-group/${var.repo-name}-*"
+          "arn:aws:codebuild:us-east-1:778172975102:report-group/${var.repo_name}-*"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Action": "s3:*",
+        "Resource": [
+          aws_s3_bucket.artifact-bucket.arn,
+          "${aws_s3_bucket.artifact-bucket.arn}/*"
         ]
       }
     ]
@@ -115,7 +123,7 @@ resource "aws_iam_role_policy" "codebuild-policy" {
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name = "${var.repo-name}-codebuild-service-role"
+  name = "${var.repo_name}-codebuild-service-role"
 
   assume_role_policy = jsonencode({
     Version   = "2012-10-17"
@@ -132,19 +140,22 @@ resource "aws_iam_role" "codebuild_role" {
   })
 
   tags = {
-    project : var.repo-name
+    project : var.repo_name
   }
 }
 
 resource "aws_codebuild_project" "example" {
-  name          = var.repo-name
-  description   = "Builds each commit of ${var.repo-name}"
+  name          = var.repo_name
+  description   = "Builds each commit of ${var.repo_name}"
   build_timeout = "5"
   service_role  = aws_iam_role.codebuild_role.arn
   badge_enabled = true
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "S3"
+    location = aws_s3_bucket.artifact-bucket.id
+    namespace_type = "BUILD_ID"
+    encryption_disabled = true
   }
 
   environment {
@@ -166,7 +177,7 @@ resource "aws_codebuild_project" "example" {
 
   logs_config {
     cloudwatch_logs {
-      group_name = "/aws/codebuild/${var.repo-name}"
+      group_name = "/aws/codebuild/${var.repo_name}"
     }
 
     # Currently not using s3 logs
@@ -187,11 +198,11 @@ resource "aws_codebuild_project" "example" {
   }
 
   tags = {
-    project = var.repo-name
+    project = var.repo_name
   }
 }
 
-resource "aws_codebuild_webhook" "example" {
+resource "aws_codebuild_webhook" "build-hook" {
   project_name = aws_codebuild_project.example.name
   build_type   = "BUILD"
   filter_group {
@@ -206,5 +217,39 @@ resource "aws_codebuild_webhook" "example" {
       # this github user pushing
       pattern = "8989563"
     }
+  }
+}
+
+resource "aws_s3_bucket" "artifact-bucket" {
+  bucket = "${var.repo_name}-artifact-bucket"
+
+  tags = {
+    project = var.repo_name
+  }
+}
+
+resource "aws_s3_bucket_acl" "artifact-bucket-acl" {
+  bucket = aws_s3_bucket.artifact-bucket.id
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_policy" "public-read" {
+  bucket = aws_s3_bucket.artifact-bucket.id
+  policy = data.aws_iam_policy_document.public-read-document.json
+}
+
+data "aws_iam_policy_document" "public-read-document" {
+  statement {
+    sid = "AllowPublicRead"
+    principals {
+      identifiers = ["*"]
+      type        = "*"
+    }
+    effect = "Allow"
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion"
+    ]
+    resources = ["${aws_s3_bucket.artifact-bucket.arn}/*"]
   }
 }
