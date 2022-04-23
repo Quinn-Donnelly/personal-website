@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './HomePage.css';
-import { Link } from 'react-router-dom';
 import SocialButton from '../../components/SocialButton/SocialButton';
 
 

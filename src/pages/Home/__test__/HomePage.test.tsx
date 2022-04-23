@@ -14,7 +14,7 @@ describe('<HomePage />', () => {
 
   it('site should have the subtitle', () => {
     const homePage = shallow(<HomePage />);
-    const subtitleMessage = "Continously Learning and Constantly Hacking."
+    const subtitleMessage = "Continuously Learning and Constantly Hacking."
   
     expect(homePage.text()).toContain(subtitleMessage);
   });
