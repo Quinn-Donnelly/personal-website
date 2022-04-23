@@ -1,4 +1,3 @@
-
 import React, { FunctionComponent } from 'react'
 import './SocialButton.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

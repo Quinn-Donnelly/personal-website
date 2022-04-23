@@ -19,7 +19,6 @@ export default class Home extends Component {
         <div className="floating-toolbar">
           <SocialButton type="github" />
           <SocialButton type="linkedin" />
-          <SocialButton type="twitter" />
           <SocialButton type="email" />
         </div>
       </div>

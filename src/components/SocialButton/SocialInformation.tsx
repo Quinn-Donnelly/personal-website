@@ -1,6 +1,5 @@
-
 import { faEnvelopeSquare } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin, faTwitterSquare, faGithubSquare } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin, faGithubSquare } from '@fortawesome/free-brands-svg-icons';
 
 interface SocialInfo {
   icon: any,
@@ -8,10 +7,6 @@ interface SocialInfo {
 }
 
 const SocialInformation: Map<string, SocialInfo> = new Map([
-  ['twitter', {
-    icon: faTwitterSquare,
-    url: "https://twitter.com/QuinnDonnelly_"
-  }],
   ['linkedin', {
     icon: faLinkedin,
     url: "https://www.linkedin.com/in/quintin-donnelly"
