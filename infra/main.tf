@@ -217,6 +217,12 @@ resource "aws_codebuild_webhook" "build-hook" {
       # this github user pushing
       pattern = "8989563"
     }
+
+    filter {
+      pattern = "refs/heads/master"
+      type    = "HEAD_REF"
+      exclude_matched_pattern = true
+    }
   }
 }
 
