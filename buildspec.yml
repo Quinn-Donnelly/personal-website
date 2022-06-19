@@ -12,20 +12,20 @@ phases:
       - export CI_REPO_OWNER=Quinn-Donnelly
       - export CI_REPO_NAME=personal-website
       - export CI_BRANCH=$CODEBUILD_SOURCE_VERSION
-      - export CI_COMMIT_MESSAGE=$(git --no-pager log --format=%B -n 1 $CODEBUILD_RESOLVED_SOURCE_VERSION)
+      - export CI_COMMIT_MESSAGE="$(git --no-pager log --format=%B -n 1 $CODEBUILD_RESOLVED_SOURCE_VERSION)"
       - export CI_COMMIT_SHA=$CODEBUILD_RESOLVED_SOURCE_VERSION
       - export CI=true
   build:
     commands:
       - npm run build --production
-      - npm run coverage
+      - npm test -- --coverage
       - echo $CODEBUILD_WEBHOOK_EVENT
   post_build:
     commands:
       - echo Build completed on `date`
       - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
       - ./node_modules/.bin/lhci autorun
-      - npm run bundlesize
+      - npm run bundlewatch
 artifacts:
   name: website-bundle
   base-directory: build

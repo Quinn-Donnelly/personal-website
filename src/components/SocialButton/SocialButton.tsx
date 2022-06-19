@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react'
+import React, {FunctionComponent} from 'react'
 import './SocialButton.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import SocialInformation from './SocialInformation';
 
 interface SocialButtonProps {

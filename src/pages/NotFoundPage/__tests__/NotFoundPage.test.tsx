@@ -1,21 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Link } from 'react-router-dom';
-import NotFoundPage from '../NotFoundPage';
+import NotFoundPage from "../NotFoundPage";
+import {render, screen} from "@testing-library/react";
+import {MemoryRouter} from "react-router-dom";
 
 describe('<NotFoundPage />', () => {
   it('should tell user page not found', () => {
-    const notFoundPage = shallow(<NotFoundPage />);
-    const notFoundMessage = '404';
-  
-    expect(notFoundPage.contains(notFoundMessage)).toEqual(true);
-  });
-
-  it('should link the user to the home page', () => {
-    const notFoundPage = shallow(<NotFoundPage />);
-    const homeLink = <Link to="/" />;
-    const link = notFoundPage.find('.link');
-
-    expect(link.prop('to')).toEqual('/');
+    render(<NotFoundPage/>, {wrapper: MemoryRouter});
+    const link = screen.getByRole("link")
+    expect(link).toHaveAttribute("href", "/")
   });
 })
