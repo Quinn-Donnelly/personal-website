@@ -1,5 +1,5 @@
-import { faEnvelopeSquare } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin, faGithubSquare } from '@fortawesome/free-brands-svg-icons';
+import {faEnvelopeSquare} from '@fortawesome/free-solid-svg-icons';
+import {faGithubSquare, faLinkedin} from '@fortawesome/free-brands-svg-icons';
 
 interface SocialInfo {
   icon: any,

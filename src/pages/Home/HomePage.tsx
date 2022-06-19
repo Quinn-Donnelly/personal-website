@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import './HomePage.css';
 import SocialButton from '../../components/SocialButton/SocialButton';
 
