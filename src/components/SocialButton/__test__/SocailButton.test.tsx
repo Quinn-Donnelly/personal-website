@@ -10,4 +10,10 @@ describe('<SocailButton />', () => {
     expect(aTag).toBeInTheDocument();
     expect(aTag).toHaveAttribute("href", "https://github.com/Quinn-Donnelly");
   })
+
+  it('should return empty if no social information matches', () => {
+    const {container} = render(<SocialButton type="" />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toBeNull()
+  })
 })
